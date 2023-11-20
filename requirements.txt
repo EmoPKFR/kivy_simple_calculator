@@ -1,0 +1,5 @@
+Kivy==2.2.1
+kivy-deps.angle==0.3.3
+kivy-deps.glew==0.3.1
+kivy-deps.sdl2==0.6.0
+Kivy-Garden==0.1.5
