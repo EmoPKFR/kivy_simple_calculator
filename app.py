@@ -5,7 +5,7 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 
 #Set the app size
-Window.size = (500, 700)
+Window.size = (400, 560)
 
 Builder.load_file("calc.kv")
 
@@ -46,14 +46,19 @@ class MyLayout(Widget):
     # Create decimal function
     def dot(self):
         prior = self.ids.calc_input.text
-        num_list = prior.split("+")
-        
-        if "+" in prior and "." not in num_list[-1]:
-            prior = f"{prior}."
-            self.ids.calc_input.text = prior
-        elif "." in prior:
-            pass
-        else:       
+        operators = ['+', '-', '*', '/']
+
+        # Check if the current number already contains a dot
+        for operator in operators:
+            if operator in prior:
+                num_list = prior.split(operator)
+                if "." not in num_list[-1]:
+                    prior = f"{prior}."
+                    self.ids.calc_input.text = prior
+                    return  # Exit the loop if a dot is added
+
+        # If no operator is found, check for a dot in the entire expression
+        if "." not in prior:
             prior = f"{prior}."
             self.ids.calc_input.text = prior
             
@@ -68,7 +73,7 @@ class MyLayout(Widget):
         try:
             #Evaluate the math from the text box
             answer = eval(prior)
-            self.ids.calc_input.text = str(answer)
+            self.ids.calc_input.text = str(answer)[:12]
         except:
             self.ids.calc_input.text = "Error"
             

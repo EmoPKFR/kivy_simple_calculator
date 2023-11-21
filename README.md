@@ -1,0 +1,1 @@
+This is a simple calculator and can display asnwers with length <= 13 characters.
